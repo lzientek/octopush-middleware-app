@@ -1,8 +1,10 @@
 {
   "parser": "babel-eslint",
-  "parserOptions": {
-    "sourceType": "module",
-    "allowImportExportEverywhere": true
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true,
+    "node": true
   },
   "extends": [
     "eslint:recommended",
@@ -15,11 +17,12 @@
     "prettier/flowtype",
     "prettier/react"
   ],
-  "env": {
-    "browser": true,
-    "node": true,
-    "es6": true
-  },
+  "plugins": [
+    "flowtype",
+    "react",
+    "mistertemp",
+    "prettier"
+  ],
   "rules": {
     "prettier/prettier": ["error", {
       "bracketSpacing": true,
@@ -36,18 +39,5 @@
       "ignoreMemberSort": false,
       "newLineBetweenGroups": true
     }]
-  },
-  "plugins": [
-    "flowtype",
-    "react",
-    "mistertemp",
-    "prettier"
-  ],
-  "settings": {
-    "import/resolver": {
-      "webpack": {
-        "config": "webpack.config.eslint.js"
-      }
-    }
   }
 }
