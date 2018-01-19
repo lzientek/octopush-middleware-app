@@ -4,7 +4,7 @@
 
 <br/>
 
-![Build Status](https://travis-ci.org/lzientek/octopush-middleware-app.svg?branch=master)
+[![Build Status](https://travis-ci.org/lzientek/octopush-middleware-app.svg?branch=master)](https://travis-ci.org/lzientek/octopush-middleware-app)
 [![React](/internals/img/react-padded-90.png)](https://facebook.github.io/react/)
 [![Webpack](/internals/img/webpack-padded-90.png)](https://webpack.github.io/)
 [![Redux](/internals/img/redux-padded-90.png)](http://redux.js.org/)

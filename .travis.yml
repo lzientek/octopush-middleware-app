@@ -34,7 +34,6 @@ before_script:
 
 script:
   - node --version
-  - npm lint
-  - npm package
-  - npm test
-  - npm test-e2e
+  - npm run package
+  - npm run test
+  - npm run test-e2e
