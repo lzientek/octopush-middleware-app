@@ -83,7 +83,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lzientek/ctopush-middleware-app/issues"
+    "url": "https://github.com/lzientek/octopush-middleware-app/issues"
   },
   "homepage": "https://github.com/lzientek/octopush-middleware-app#readme",
   "jest": {
@@ -114,7 +114,6 @@
     "babel-plugin-dev-expression": "^0.2.1",
     "babel-plugin-dynamic-import-webpack": "^1.0.2",
     "babel-plugin-flow-runtime": "^0.15.0",
-    "babel-plugin-import": "^1.6.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-preset-env": "^1.6.1",

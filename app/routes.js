@@ -3,14 +3,14 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 
 import App from './containers/App';
-import CounterPage from './containers/CounterPage';
-import HomePage from './containers/HomePage';
+import Menu from './components/Menu/Menu';
+import ParametersContainer from './containers/ParametersContainer';
 
 const Application = () => (
     <App>
         <Switch>
-            <Route path="/counter" component={CounterPage} />
-            <Route path="/" component={HomePage} />
+            <Route path="/" component={Menu} />
+            <Route path="/parameters" component={ParametersContainer} />
         </Switch>
     </App>
 );

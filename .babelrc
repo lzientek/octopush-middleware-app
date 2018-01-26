@@ -9,8 +9,7 @@
   ],
   "plugins": [
     "add-module-exports",
-    "dynamic-import-webpack",
-    ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }]
+    "dynamic-import-webpack"
   ],
   "env": {
     "production": {

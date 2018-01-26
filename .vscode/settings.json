@@ -14,5 +14,15 @@
     "node_modules": true,
     "npm-debug.log.*": true,
     "test/**/__snapshots__": true
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "app/main.prod.js": true,
+    "app/main.prod.js.map": true,
+    "**/dist": true
   }
 }
