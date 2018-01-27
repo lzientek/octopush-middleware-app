@@ -23,6 +23,8 @@
     "**/.DS_Store": true,
     "app/main.prod.js": true,
     "app/main.prod.js.map": true,
-    "**/dist": true
+    "**/dist": true,
+    "**/flow-typed": true,
+    "**/node_modules": true
   }
 }

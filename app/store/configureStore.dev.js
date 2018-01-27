@@ -1,5 +1,6 @@
 // @flow
 
+import createSagaMiddleware from 'redux-saga';
 import thunk from 'redux-thunk';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { createHashHistory } from 'history';
@@ -7,6 +8,7 @@ import { createLogger } from 'redux-logger';
 import { routerActions, routerMiddleware } from 'react-router-redux';
 
 import rootReducer from '../reducers';
+import rootSaga from '../saga';
 import * as counterActions from '../actions/counter';
 
 import type { counterStateType } from '../reducers/counter';
@@ -35,7 +37,8 @@ const configureStore = (initialState?: counterStateType) => {
     // Router Middleware
     const router = routerMiddleware(history);
     middleware.push(router);
-
+    const sagaMiddleware = createSagaMiddleware();
+    middleware.push(sagaMiddleware);
     // Redux DevTools Configuration
     const actionCreators = {
         ...counterActions,
@@ -57,6 +60,7 @@ const configureStore = (initialState?: counterStateType) => {
 
     // Create Store
     const store = createStore(rootReducer, initialState, enhancer);
+    sagaMiddleware.run(rootSaga);
 
     if (module.hot) {
         module.hot.accept('../reducers', () => store.replaceReducer(require('../reducers'))); // eslint-disable-line global-require
