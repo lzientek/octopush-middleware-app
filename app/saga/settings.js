@@ -13,7 +13,7 @@ export const localStorageName = 'settings';
 
 function* getSettings() {
     try {
-        const data = localStorage.getItem(localStorageName) || {};
+        const data = JSON.parse(localStorage.getItem(localStorageName)) || {};
 
         yield put({ type: SETTINGS_GET_SUCCESS, data });
     } catch (error) {

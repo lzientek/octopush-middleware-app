@@ -8,7 +8,7 @@ const ContentRoute = ({ component: NestedComponent, ...props }) => (
     <Route
         {...props}
         render={props => (
-            <Layout.Content>
+            <Layout.Content style={{padding: 10}}>
                 <NestedComponent {...props} />
             </Layout.Content>
         )}
