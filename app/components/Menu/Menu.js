@@ -1,28 +1,31 @@
-// @flow
+//      
 import React, { Component } from 'react';
-import { Menu } from 'antd';
+import { Layout, Menu } from 'antd';
 
-import type { History } from '../../../internals/flow/History.js';
+                                                                  
 
-type Props = {
-    history: History,
-};
+const { Sider } = Layout;
+              
+                     
+  
 
-export default class HomePage extends Component<Props> {
-    props: Props;
+export default class HomePage extends Component        {
+                 
 
-    handleClick = ({ key }: { key: string }) => {
+    handleClick = ({ key }                 ) => {
         this.props.history.push(key);
     };
 
     render() {
         return (
-            <Menu onClick={this.handleClick} style={{ width: 256 }} mode="inline">
-                <Menu.Item key={'/parameters'}>Parameters</Menu.Item>
-                <Menu.Item key={'/templates'}>Templates</Menu.Item>
-                <Menu.Item key={'/stats'}>Stats</Menu.Item>
-                <Menu.Item key={'/send'}>Send</Menu.Item>
-            </Menu>
+            <Sider>
+                <Menu onClick={this.handleClick} style={{ width: 256 }} mode="inline">
+                    <Menu.Item key={'/parameters'}>Parameters</Menu.Item>
+                    <Menu.Item key={'/templates'}>Templates</Menu.Item>
+                    <Menu.Item key={'/stats'}>Stats</Menu.Item>
+                    <Menu.Item key={'/send'}>Send</Menu.Item>
+                </Menu>
+            </Sider>
         );
     }
 }

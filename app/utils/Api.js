@@ -1,63 +1,16 @@
-// @flow
-declare var apiUrl: string;
-
 import fetch from 'isomorphic-fetch';
 
-type Params = {
-    url: string,
-    data?: Object,
-    headers?: {
-        'Content-Type'?: string,
-        authorization?: string,
-    },
-};
-
-type Configuration = {
-    method: string,
-    headers: Object,
-    mode: string,
-    body?: Object,
-};
-
-const checkIsFileRequest = (data: Object): boolean => {
-    for (const name in data) {
-        if (data[name] instanceof File) {
-            return true;
-        }
-    }
-    return false;
-};
-
-const formatData = (data: Object): FormData => {
-    const formData = new FormData();
-
-    for (const name in data) {
-        if (data[name] != undefined) {
-            formData.append(name, data[name]);
-        }
-    }
-
-    return formData;
-};
-
-export const getConfiguration = (type: string, params: Params): Object => {
+export const getConfiguration = (type, params) => {
     const url = `${apiUrl}/v1/${params.url}`;
     const token = window.localStorage.user ? JSON.parse(window.localStorage.user).token : null;
-    const configuration: Configuration = {
+    const { data } = params;
+    const configuration = {
         method: type,
         headers: params.headers || { 'Content-Type': 'application/json' },
         mode: 'cors',
     };
 
-    if (token) {
-        configuration.headers.authorization = `Bearer ${token}`;
-    }
-
-    if (params.data && checkIsFileRequest(params.data)) {
-        delete configuration.headers['Content-Type'];
-        configuration.body = formatData(params.data);
-    } else if (params.data) {
-        const { data } = params;
+    if (data) {
         configuration.body = JSON.stringify(data);
     }
 
@@ -67,13 +20,7 @@ export const getConfiguration = (type: string, params: Params): Object => {
     };
 };
 
-export const call = async ({
-    url,
-    configuration,
-}: {
-    url: string,
-    configuration: Object,
-}): Promise<mixed> => {
+export const call = async ({ url, configuration }) => {
     const response = await fetch(url, configuration);
 
     if (response.status < 300) {
@@ -86,8 +33,8 @@ export const call = async ({
     }
 };
 
-export const request = (type: string): Function => {
-    return (params: Params) => {
+export const request = type => {
+    return params => {
         return call(getConfiguration(type, params));
     };
 };

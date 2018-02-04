@@ -1,18 +1,8 @@
-// @flow
-import * as React from 'react';
+import React, { Component } from 'react';
+import { Layout } from 'antd';
 
-type Props = {
-  children: React.Node
-};
-
-export default class App extends React.Component<Props> {
-  props: Props;
-
-  render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    );
-  }
+export default class App extends Component {
+    render() {
+        return <Layout>{this.props.children}</Layout>;
+    }
 }
