@@ -11,10 +11,9 @@ const FormItem = Form.Item;
 export class ParametersContainer extends Component {
     static propTypes = {
         settings: PropTypes.shape({
+            url: PropTypes.string,
             apiKey: PropTypes.string,
             apiSecret: PropTypes.string,
-            userName: PropTypes.string,
-            userPassword: PropTypes.string,
             adminPassword: PropTypes.string,
         }),
         saveSettings: PropTypes.func,
@@ -22,10 +21,9 @@ export class ParametersContainer extends Component {
     };
 
     state = {
+        url: '',
         apiKey: '',
         apiSecret: '',
-        userName: '',
-        userPassword: '',
         adminPassword: '',
         ...this.props.settings,
         displayHiddenFields: false,
@@ -44,14 +42,13 @@ export class ParametersContainer extends Component {
     }
 
     handleSubmit = e => {
-        const { apiKey, apiSecret, userName, userPassword, adminPassword } = this.state;
+        const { url, apiKey, apiSecret, adminPassword } = this.state;
 
         e.preventDefault();
         this.props.saveSettings({
+            url,
             apiKey,
             apiSecret,
-            userName,
-            userPassword,
             adminPassword,
         });
     };
@@ -65,14 +62,7 @@ export class ParametersContainer extends Component {
     };
 
     render() {
-        const {
-            apiKey,
-            apiSecret,
-            userName,
-            userPassword,
-            adminPassword,
-            displayHiddenFields,
-        } = this.state;
+        const { url, apiKey, apiSecret, adminPassword, displayHiddenFields } = this.state;
 
         return [
             <h2 key="1">Parameters</h2>,
@@ -85,23 +75,13 @@ export class ParametersContainer extends Component {
                         Display password fields
                     </Checkbox>
                 </FormItem>
-                <FormItem label="Username">
+                <FormItem label="Url">
                     <Input
                         onChange={this.onChange}
-                        prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                        placeholder="Username"
-                        value={userName}
-                        name="userName"
-                    />
-                </FormItem>
-                <FormItem label="User Password">
-                    <Input
-                        onChange={this.onChange}
-                        prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                        type={displayHiddenFields ? 'text' : 'password'}
-                        placeholder="User Password"
-                        value={userPassword}
-                        name="userPassword"
+                        prefix={<Icon type="link" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                        placeholder="Url"
+                        value={url}
+                        name="url"
                     />
                 </FormItem>
                 <FormItem label="Admin Password">

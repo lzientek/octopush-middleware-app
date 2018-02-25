@@ -1,15 +1,20 @@
 import fetch from 'isomorphic-fetch';
 
-export const getConfiguration = (type, params) => {
-    const url = `${apiUrl}/v1/${params.url}`;
-    const token = window.localStorage.user ? JSON.parse(window.localStorage.user).token : null;
-    const { data } = params;
+import { localStorageName } from '../saga/settings';
+
+export const getConfiguration = (type, { data, url, headers }) => {
+    const settings = JSON.parse(localStorage.getItem(localStorageName)) || {};
     const configuration = {
         method: type,
-        headers: params.headers || { 'Content-Type': 'application/json' },
-        mode: 'cors',
+        headers: {
+            ...(headers || {}),
+            'Content-Type': 'application/json',
+            ApiKey: settings.apiKey,
+            ApiSecret: settings.ApiSecret,
+            Authorization: settings.adminPassword && `Admin ${settings.adminPassword}`,
+        },
     };
-
+    url = `${settings.url}${url}`;
     if (data) {
         configuration.body = JSON.stringify(data);
     }

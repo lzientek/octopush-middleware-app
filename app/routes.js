@@ -6,12 +6,16 @@ import App from './containers/App';
 import ContentRoute from './components/ContentRoute/ContentRoute';
 import Menu from './components/Menu/Menu';
 import ParametersContainer from './containers/ParametersContainer';
+import TemplateContainer from './containers/Templates/TemplateContainer';
+import TemplateListContainer from './containers/Templates/TemplateListContainer';
 
 const Application = () => (
     <App>
         <Route path="/" component={Menu} />
         <Route exact path="/" render={() => <Redirect to="/parameters" />} />
         <ContentRoute path="/parameters" component={ParametersContainer} />
+        <ContentRoute path="/templates" component={TemplateListContainer} />
+        <ContentRoute path="/template" component={TemplateContainer} />
     </App>
 );
 
