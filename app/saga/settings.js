@@ -1,4 +1,4 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { all, put, takeLatest } from 'redux-saga/effects';
 
 import {
     SETTINGS_GET,
@@ -32,5 +32,5 @@ function* saveSettings({ data }) {
 }
 
 export default function* settingsSaga() {
-    yield [takeLatest(SETTINGS_GET, getSettings), takeLatest(SETTINGS_SAVE, saveSettings)];
+    yield all([takeLatest(SETTINGS_GET, getSettings), takeLatest(SETTINGS_SAVE, saveSettings)]);
 }

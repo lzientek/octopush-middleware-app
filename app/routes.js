@@ -15,7 +15,8 @@ const Application = () => (
         <Route exact path="/" render={() => <Redirect to="/parameters" />} />
         <ContentRoute path="/parameters" component={ParametersContainer} />
         <ContentRoute path="/templates" component={TemplateListContainer} />
-        <ContentRoute path="/template" component={TemplateContainer} />
+        <ContentRoute exact path="/template" component={TemplateContainer} />
+        <ContentRoute path="/template/:id" component={TemplateContainer} />
     </App>
 );
 

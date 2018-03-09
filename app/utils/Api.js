@@ -1,5 +1,3 @@
-import fetch from 'isomorphic-fetch';
-
 import { localStorageName } from '../saga/settings';
 
 export const getConfiguration = (type, { data, url, headers }) => {
@@ -10,7 +8,7 @@ export const getConfiguration = (type, { data, url, headers }) => {
             ...(headers || {}),
             'Content-Type': 'application/json',
             ApiKey: settings.apiKey,
-            ApiSecret: settings.ApiSecret,
+            ApiSecret: settings.apiSecret,
             Authorization: settings.adminPassword && `Admin ${settings.adminPassword}`,
         },
     };

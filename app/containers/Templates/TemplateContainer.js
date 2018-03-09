@@ -1,38 +1,89 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { Button, Form, Icon, Input } from 'antd';
+import { Breadcrumb, Button, Form, Icon, Input } from 'antd';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 const FormItem = Form.Item;
 
-import { saveTemplates } from '../../actions/templates';
+import { createTemplate, showTemplate, updateTemplate } from '../../actions/templates';
 
-export class TemplateListContainer extends Component {
+const Template = PropTypes.shape({
+    id: PropTypes.string,
+    user_id: PropTypes.string,
+    title: PropTypes.string,
+    content: PropTypes.string,
+    language: PropTypes.string,
+    sms_sender: PropTypes.string,
+    sms_type: PropTypes.string,
+});
+
+export class TemplateContainer extends Component {
     static propTypes = {
-        template: PropTypes.shape({
-            id: PropTypes.string,
-            user_id: PropTypes.string,
-            title: PropTypes.string,
-            content: PropTypes.string,
-            language: PropTypes.string,
-            sms_sender: PropTypes.string,
-            sms_type: PropTypes.string,
-        }),
-        saveTemplate: PropTypes.func,
+        template: Template,
+        createdTemplate: Template,
+        updatedTemplate: Template,
+        updateTemplate: PropTypes.func,
+        createTemplate: PropTypes.func,
+        showTemplate: PropTypes.func,
+        match: PropTypes.shape({ params: PropTypes.object }),
     };
     state = {
+        id: null,
         title: '',
         content: '',
         language: '',
         sms_sender: '',
         sms_type: '',
     };
+    templateId = true;
+
+    componentDidMount() {
+        this.templateId = this.props.match.params.id;
+        this.templateId && this.props.showTemplate(this.templateId);
+    }
+
+    componentWillReceiveProps({ template, createdTemplate, updatedTemplate }) {
+        if (template && template !== this.props.template) {
+            this.setState(template);
+        }
+        if (createdTemplate && createdTemplate !== this.props.createdTemplate) {
+            this.templateId = createdTemplate.id;
+            this.setState(createdTemplate);
+        }
+        if (updatedTemplate && updatedTemplate !== this.props.updatedTemplate) {
+            this.setState(updatedTemplate);
+        }
+    }
+
+    handleSubmit = e => {
+        e.preventDefault();
+        const { createTemplate, updateTemplate } = this.props;
+
+        if (this.templateId) {
+            updateTemplate(this.templateId, this.state);
+        } else {
+            createTemplate(this.state);
+        }
+    };
+
+    onChange = ({ target: { value, name } }) => {
+        this.setState({ [name]: value });
+    };
 
     render() {
-        const { title, content, language, sms_sender, sms_type } = this.state;
+        const { state: { id, title, content, language, sms_sender, sms_type } } = this;
 
         return [
-            <h2 key="1">Parameters</h2>,
+            <Breadcrumb key="0">
+                <Breadcrumb.Item>
+                    <Icon type="home" />
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                    <Link to={'/templates'}>Templates</Link>
+                </Breadcrumb.Item>
+            </Breadcrumb>,
+            <h2 key="1">{id ? 'Edit' : 'New'} template</h2>,
             <Form key="2" onSubmit={this.handleSubmit}>
                 <FormItem label="Title">
                     <Input
@@ -44,11 +95,11 @@ export class TemplateListContainer extends Component {
                     />
                 </FormItem>
                 <FormItem label="SMS Content">
-                    <Input
+                    <Input.TextArea
                         onChange={this.onChange}
-                        prefix={<Icon type="file-text" style={{ color: 'rgba(0,0,0,.25)' }} />}
                         placeholder="SMS Content"
                         value={content}
+                        autosize={{ minRows: 3, maxRows: 6 }}
                         name="content"
                     />
                 </FormItem>
@@ -89,12 +140,16 @@ export class TemplateListContainer extends Component {
     }
 }
 
-const mapStateToProps = ({ templates: { templates } }) => ({
-    templates,
+const mapStateToProps = ({ templates: { template, createdTemplate, updatedTemplate } }) => ({
+    template,
+    createdTemplate,
+    updatedTemplate,
 });
 
 const mapDispatchToProps = dispatch => ({
-    saveTemplates: bindActionCreators(saveTemplates, dispatch),
+    updateTemplate: bindActionCreators(updateTemplate, dispatch),
+    createTemplate: bindActionCreators(createTemplate, dispatch),
+    showTemplate: bindActionCreators(showTemplate, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TemplateListContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(TemplateContainer);

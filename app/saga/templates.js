@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import Api from '../utils/Api';
 import {
@@ -69,10 +69,10 @@ function* showTemplate({ templateId }) {
 }
 
 export default function* settingsSaga() {
-    yield [
+    yield all([
         takeLatest(TEMPLATES_GET, getTemplates),
         takeLatest(TEMPLATES_CREATE, createTemplate),
         takeLatest(TEMPLATES_SHOW, showTemplate),
         takeLatest(TEMPLATES_UPDATE, updateTemplate),
-    ];
+    ]);
 }

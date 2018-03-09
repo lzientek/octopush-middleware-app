@@ -7,13 +7,13 @@
  * https://webpack.js.org/concepts/hot-module-replacement/
  */
 
-import path from 'path';
-import fs from 'fs';
-import webpack from 'webpack';
 import chalk from 'chalk';
-import merge from 'webpack-merge';
-import { execSync, spawn } from 'child_process';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import fs from 'fs';
+import merge from 'webpack-merge';
+import path from 'path';
+import webpack from 'webpack';
+import { execSync, spawn } from 'child_process';
 
 import baseConfig from './webpack.config.base';
 import CheckNodeEnv from './internals/scripts/CheckNodeEnv';
@@ -105,45 +105,6 @@ export default merge.smart(baseConfig, {
                     },
                 ],
             },
-            // SASS support - compile all .global.scss files and pipe it to style.css
-            {
-                test: /\.global\.scss$/,
-                use: [
-                    {
-                        loader: 'style-loader',
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true,
-                        },
-                    },
-                    {
-                        loader: 'sass-loader',
-                    },
-                ],
-            },
-            // SASS support - compile all other .scss files and pipe it to style.css
-            {
-                test: /^((?!\.global).)*\.scss$/,
-                use: [
-                    {
-                        loader: 'style-loader',
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: true,
-                            sourceMap: true,
-                            importLoaders: 1,
-                            localIdentName: '[name]__[local]__[hash:base64:5]',
-                        },
-                    },
-                    {
-                        loader: 'sass-loader',
-                    },
-                ],
-            },
             // WOFF Font
             {
                 test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
@@ -214,18 +175,6 @@ export default merge.smart(baseConfig, {
 
         new webpack.NoEmitOnErrorsPlugin(),
 
-        /**
-         * Create global constants which can be configured at compile time.
-         *
-         * Useful for allowing different behaviour between development builds and
-         * release builds
-         *
-         * NODE_ENV should be production so that modules do not perform certain
-         * development checks
-         *
-         * By default, use 'development' as NODE_ENV. This can be overriden with
-         * 'staging', for example, by changing the ENV variables in the npm scripts
-         */
         new webpack.EnvironmentPlugin({
             NODE_ENV: 'development',
         }),
@@ -256,9 +205,7 @@ export default merge.smart(baseConfig, {
         headers: { 'Access-Control-Allow-Origin': '*' },
         contentBase: path.join(__dirname, 'dist'),
         watchOptions: {
-            aggregateTimeout: 300,
             ignored: /node_modules/,
-            poll: 100,
         },
         historyApiFallback: {
             verbose: true,
@@ -271,9 +218,7 @@ export default merge.smart(baseConfig, {
                     shell: true,
                     env: process.env,
                     stdio: 'inherit',
-                })
-                    .on('close', code => process.exit(code))
-                    .on('error', spawnError => console.error(spawnError));
+                }).on('close', code => process.exit(code));
             }
         },
     },

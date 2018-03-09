@@ -20,14 +20,14 @@ export const getTemplates = () => {
     };
 };
 
-export const saveTemplates = template => {
+export const createTemplate = template => {
     return {
         type: TEMPLATES_CREATE,
         data: template,
     };
 };
 
-export const updateTemplates = (templateId, template) => {
+export const updateTemplate = (templateId, template) => {
     return {
         type: TEMPLATES_UPDATE,
         templateId,
@@ -35,7 +35,7 @@ export const updateTemplates = (templateId, template) => {
     };
 };
 
-export const showTemplates = templateId => {
+export const showTemplate = templateId => {
     return {
         type: TEMPLATES_SHOW,
         templateId,
