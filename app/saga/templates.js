@@ -8,6 +8,9 @@ import {
     TEMPLATES_GET,
     TEMPLATES_GET_FAILURE,
     TEMPLATES_GET_SUCCESS,
+    TEMPLATES_SEND,
+    TEMPLATES_SEND_FAILURE,
+    TEMPLATES_SEND_SUCCESS,
     TEMPLATES_SHOW,
     TEMPLATES_SHOW_FAILURE,
     TEMPLATES_SHOW_SUCCESS,
@@ -68,11 +71,25 @@ function* showTemplate({ templateId }) {
     }
 }
 
+function* sendTemplate({ templateId, data }) {
+    try {
+        const { data: sentTemplate } = yield call(Api.post, {
+            url: `/api/v1/send/${templateId}`,
+            data,
+        });
+
+        yield put({ type: TEMPLATES_SEND_SUCCESS, sentTemplate });
+    } catch (error) {
+        yield put({ type: TEMPLATES_SEND_FAILURE, error });
+    }
+}
+
 export default function* settingsSaga() {
     yield all([
         takeLatest(TEMPLATES_GET, getTemplates),
         takeLatest(TEMPLATES_CREATE, createTemplate),
         takeLatest(TEMPLATES_SHOW, showTemplate),
         takeLatest(TEMPLATES_UPDATE, updateTemplate),
+        takeLatest(TEMPLATES_SEND, sendTemplate),
     ]);
 }

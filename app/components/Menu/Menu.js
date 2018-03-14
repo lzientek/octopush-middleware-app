@@ -37,7 +37,6 @@ export class MenuSider extends Component {
                     <Menu.Item key={'/parameters'}>Parameters</Menu.Item>
                     <Menu.Item key={'/templates'}>Templates</Menu.Item>
                     <Menu.Item key={'/stats'}>Stats</Menu.Item>
-                    <Menu.Item key={'/send'}>Send</Menu.Item>
                 </Menu>
             </Sider>
         );

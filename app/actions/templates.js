@@ -14,6 +14,10 @@ export const TEMPLATES_SHOW = 'TEMPLATES_SHOW';
 export const TEMPLATES_SHOW_SUCCESS = 'TEMPLATES_SHOW_SUCCESS';
 export const TEMPLATES_SHOW_FAILURE = 'TEMPLATES_SHOW_FAILURE';
 
+export const TEMPLATES_SEND = 'TEMPLATES_SEND';
+export const TEMPLATES_SEND_SUCCESS = 'TEMPLATES_SEND_SUCCESS';
+export const TEMPLATES_SEND_FAILURE = 'TEMPLATES_SEND_FAILURE';
+
 export const getTemplates = () => {
     return {
         type: TEMPLATES_GET,
@@ -39,5 +43,13 @@ export const showTemplate = templateId => {
     return {
         type: TEMPLATES_SHOW,
         templateId,
+    };
+};
+
+export const sendTemplate = (templateId, data) => {
+    return {
+        type: TEMPLATES_SEND,
+        templateId,
+        data,
     };
 };

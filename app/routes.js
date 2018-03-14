@@ -6,6 +6,7 @@ import App from './containers/App';
 import ContentRoute from './components/ContentRoute/ContentRoute';
 import Menu from './components/Menu/Menu';
 import ParametersContainer from './containers/ParametersContainer';
+import SendContainer from './containers/Send/SendContainer';
 import TemplateContainer from './containers/Templates/TemplateContainer';
 import TemplateListContainer from './containers/Templates/TemplateListContainer';
 
@@ -17,6 +18,7 @@ const Application = () => (
         <ContentRoute path="/templates" component={TemplateListContainer} />
         <ContentRoute exact path="/template" component={TemplateContainer} />
         <ContentRoute path="/template/:id" component={TemplateContainer} />
+        <ContentRoute path="/send/:id" component={SendContainer} />
     </App>
 );
 

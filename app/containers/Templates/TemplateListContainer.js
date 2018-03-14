@@ -53,6 +53,9 @@ export class TemplateListContainer extends Component {
                                 <Link key="0" to={`/template/${template.id}`}>
                                     Edit
                                 </Link>,
+                                <Link key="1" to={`/send/${template.id}`}>
+                                    Send
+                                </Link>,
                             ]}>
                             <List.Item.Meta
                                 title={
