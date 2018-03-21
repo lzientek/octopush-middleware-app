@@ -35,6 +35,7 @@ export class MenuSider extends Component {
             <Sider>
                 <Menu onClick={this.handleClick} style={{ width: 200 }} mode="inline">
                     <Menu.Item key={'/parameters'}>Parameters</Menu.Item>
+                    <Menu.Item key={'/users'}>Users</Menu.Item>
                     <Menu.Item key={'/templates'}>Templates</Menu.Item>
                     <Menu.Item key={'/stats'}>Stats</Menu.Item>
                 </Menu>

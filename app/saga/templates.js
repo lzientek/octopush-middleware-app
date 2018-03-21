@@ -19,8 +19,6 @@ import {
     TEMPLATES_UPDATE_SUCCESS,
 } from '../actions/templates';
 
-export const localStorageName = 'settings';
-
 function* getTemplates() {
     try {
         const { data } = yield call(Api.get, {
@@ -84,7 +82,7 @@ function* sendTemplate({ templateId, data }) {
     }
 }
 
-export default function* settingsSaga() {
+export default function* templatesSaga() {
     yield all([
         takeLatest(TEMPLATES_GET, getTemplates),
         takeLatest(TEMPLATES_CREATE, createTemplate),

@@ -26,27 +26,35 @@ export class TemplateListContainer extends Component {
         getTemplates: PropTypes.func,
     };
 
+    state = { loading: true };
+
     componentDidMount() {
         this.props.getTemplates();
     }
 
+    componentWillReceiveProps({ templates }) {
+        if (this.props.templates !== templates) {
+            this.setState({ loading: false });
+        }
+    }
+
     render() {
-        const { templates } = this.props;
+        const { props: { templates }, state: { loading } } = this;
 
         return [
             <h2 key="1">
                 Templates
                 <Link className={style.right} key="2" to={'/template'}>
                     <Button type="primary" htmlType="button">
-                        Ajouter un template
+                        Add a template
                     </Button>
                 </Link>
             </h2>,
             <div key="2">
                 <List
-                    loading={!templates}
+                    loading={loading}
                     itemLayout="horizontal"
-                    dataSource={templates || []}
+                    dataSource={templates}
                     renderItem={template => (
                         <List.Item
                             actions={[

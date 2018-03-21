@@ -23,7 +23,9 @@ function* getSettings() {
 
 function* saveSettings({ data }) {
     try {
-        localStorage.setItem(localStorageName, JSON.stringify(data));
+        const oldData = JSON.parse(localStorage.getItem(localStorageName)) || {};
+
+        localStorage.setItem(localStorageName, JSON.stringify({ ...oldData, ...data }));
 
         yield put({ type: SETTINGS_SAVE_SUCCESS, data });
     } catch (error) {

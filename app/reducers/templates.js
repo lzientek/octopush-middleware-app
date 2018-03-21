@@ -8,7 +8,7 @@ import {
 
 export default (
     state = {
-        templates: null,
+        templates: [],
         createdTemplate: null,
         updatedTemplate: null,
         template: null,

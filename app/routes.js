@@ -9,6 +9,8 @@ import ParametersContainer from './containers/ParametersContainer';
 import SendContainer from './containers/Send/SendContainer';
 import TemplateContainer from './containers/Templates/TemplateContainer';
 import TemplateListContainer from './containers/Templates/TemplateListContainer';
+import UserContainer from './containers/Users/UserContainer';
+import UserListContainer from './containers/Users/UserListContainer';
 
 const Application = () => (
     <App>
@@ -19,6 +21,9 @@ const Application = () => (
         <ContentRoute exact path="/template" component={TemplateContainer} />
         <ContentRoute path="/template/:id" component={TemplateContainer} />
         <ContentRoute path="/send/:id" component={SendContainer} />
+        <ContentRoute exact path="/users" component={UserListContainer} />
+        <ContentRoute exact path="/user" component={UserContainer} />
+        <ContentRoute path="/user/:id" component={UserContainer} />
     </App>
 );
 
