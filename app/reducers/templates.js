@@ -1,5 +1,6 @@
 import {
     TEMPLATES_CREATE_SUCCESS,
+    TEMPLATES_GET_SENDINGS_SUCCESS,
     TEMPLATES_GET_SUCCESS,
     TEMPLATES_SEND_SUCCESS,
     TEMPLATES_SHOW_SUCCESS,
@@ -13,6 +14,7 @@ export default (
         updatedTemplate: null,
         template: null,
         sentTemplate: null,
+        sendings: [],
     },
     action = {},
 ) => {
@@ -27,6 +29,8 @@ export default (
             return { ...state, template: action.template };
         case TEMPLATES_SEND_SUCCESS:
             return { ...state, sentTemplate: action.sentTemplate };
+        case TEMPLATES_GET_SENDINGS_SUCCESS:
+            return { ...state, sendings: action.sendings };
         default:
             return state;
     }
